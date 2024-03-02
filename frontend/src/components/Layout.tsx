@@ -4,7 +4,11 @@ import { Link } from "./Navbar/Navbar";
 
 const links: Link[] = [
   { path: "/saeson", title: "Sæsonplan" },
-  { path: "/saeson", title: "Sæsonplan2" },
+  { path: "/ratingliste", title: "Ratingliste" },
+  { path: "/holdturnering", title: "Holdturnering" },
+  { path: "/stævne", title: "Stævne" },
+  { path: "/spillere", title: "Spillere" },
+  { path: "/klubber", title: "Klubber" },
 ];
 
 export function Layout() {
