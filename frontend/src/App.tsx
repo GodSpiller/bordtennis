@@ -2,13 +2,24 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
 import { Layout } from "./components/Layout";
+import { SeasonPlanPage } from "./pages/SeasonPlanPage";
+import { RatingListPage } from "./pages/RatingListPage";
+import { TeamTournamentPage } from "./pages/TeamTournamentPage";
+import { ConventionPage } from "./pages/ConventionPage";
+import { PlayerPage } from "./pages/PlayerPage";
+import { ClubPage } from "./pages/ClubPage";
 
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<div></div>}></Route>
+          <Route path="/saeson" element={<SeasonPlanPage />} />
+          <Route path="/ratingliste" element={<RatingListPage />} />
+          <Route path="/holdturnering" element={<TeamTournamentPage />} />
+          <Route path="/stævne" element={<ConventionPage />} />
+          <Route path="/spillere" element={<PlayerPage />} />
+          <Route path="/klubber" element={<ClubPage />} />
         </Route>
       </Routes>
     </div>

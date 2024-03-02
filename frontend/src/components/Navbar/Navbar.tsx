@@ -12,10 +12,10 @@ export type NavbarProps = {
 export function Navbar({ links }: NavbarProps) {
   return (
     <nav>
-      <div className="Navbar">
-        <div className="">
+      <div className="bg-red-600 w-full shadow flex items-center justify-center h-32">
+        <div className="flex items-baseline ml-10 space-x-4">
           {links.map((link, index) => (
-            <NavLink key={index} to={link.path}>
+            <NavLink className="text-white" key={index} to={link.path}>
               {link.title}
             </NavLink>
           ))}
