@@ -92,15 +92,15 @@ type Props = {
 
 export function AgeGroupSelect({ setAgeGroup }: Props) {
   return (
-    <div className="flex flex-col w-[130px] text-xls">
-      Aldersgruppe
-      <select onChange={setAgeGroup} className="border-black border">
+    <form className="flex flex-col w-[130px] ">
+      <label>Aldersgruppe</label>
+      <select onChange={setAgeGroup} className="border-black border h-[28px]">
         {ageGroups.map((age) => (
           <option key={age.identifier} value={age.identifier}>
             {age.title}
           </option>
         ))}
       </select>
-    </div>
+    </form>
   );
 }
