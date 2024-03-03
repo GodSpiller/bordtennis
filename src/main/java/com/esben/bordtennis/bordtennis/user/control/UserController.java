@@ -27,5 +27,4 @@ public class UserController {
 
         return userMapper.mapToCreateUserResponseDTO(user);
     }
-
 }
