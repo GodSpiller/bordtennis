@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AgeGroupSelect } from "../components/selects/AgeGroupSelect";
+import { WeekInput } from "../components/inputs/WeekInput";
 
 export function SeasonPlanPage() {
   const [ageGroup, setAgeGroup] = useState<string | undefined>();
@@ -13,6 +14,7 @@ export function SeasonPlanPage() {
     <div className="flex flex-col">
       Sæsonplan!
       <AgeGroupSelect setAgeGroup={ageGroupChange} />
+      <WeekInput />
     </div>
   );
 }
