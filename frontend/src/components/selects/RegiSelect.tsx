@@ -51,9 +51,9 @@ export function RegiSelect({ setRegi }: Props) {
     <form className="flex flex-col w-[260px]">
       <label>Regi</label>
       <select onChange={setRegi} className="border-black border h-[28px]">
-        {regi.map((age) => (
-          <option key={age.identifier} value={age.identifier}>
-            {age.title}
+        {regi.map((regi) => (
+          <option key={regi.identifier} value={regi.identifier}>
+            {regi.title}
           </option>
         ))}
       </select>
