@@ -5,6 +5,7 @@ import { RegiSelect } from "../components/selects/RegiSelect";
 import { SeasonSelect } from "../components/selects/SeasonSelect";
 import { DateSelect } from "../components/selects/DateSelect";
 import { ClassSelect } from "../components/selects/ClassSelect";
+import { SearchButton } from "../components/SearchButton";
 
 export function SeasonPlanPage() {
   const [ageGroup, setAgeGroup] = useState<string | undefined>();
@@ -32,14 +33,21 @@ export function SeasonPlanPage() {
     console.log(_class);
   };
 
+  const Search = () => {
+    // call api hook with search parameters
+  };
+
   return (
-    <div className="flex flex-row gap-3">
-      <SeasonSelect setSeason={seasonChange} />
-      <RegiSelect setRegi={regiChange} />
-      <AgeGroupSelect setAgeGroup={ageGroupChange} />
-      <ClassSelect setClass={classChange} />
-      <DateSelect />
-      <WeekInput />
+    <div>
+      <div className="flex flex-row gap-3">
+        <SeasonSelect setSeason={seasonChange} />
+        <RegiSelect setRegi={regiChange} />
+        <AgeGroupSelect setAgeGroup={ageGroupChange} />
+        <ClassSelect setClass={classChange} />
+        <DateSelect />
+        <WeekInput />
+      </div>
+      <SearchButton search={() => null} />
     </div>
   );
 }
