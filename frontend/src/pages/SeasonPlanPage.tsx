@@ -47,7 +47,7 @@ export function SeasonPlanPage() {
         <DateSelect />
         <WeekInput />
       </div>
-      <SearchButton search={() => null} />
+      <SearchButton search={Search} />
     </div>
   );
 }
