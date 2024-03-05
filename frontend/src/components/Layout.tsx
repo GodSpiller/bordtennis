@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { Navbar } from "./navbar/Navbar";
-import { Link } from "./navbar/Navbar";
+import { Navbar } from "./Navbar/Navbar";
+import { Link } from "./Navbar/Navbar";
 
 const links: Link[] = [
   { path: "/saeson", title: "Sæsonplan" },

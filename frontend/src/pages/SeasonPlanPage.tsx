@@ -6,12 +6,15 @@ import { SeasonSelect } from "../components/selects/SeasonSelect";
 import { DateSelect } from "../components/selects/DateSelect";
 import { ClassSelect } from "../components/selects/ClassSelect";
 import { SearchButton } from "../components/SearchButton";
+import { useGetHello } from "../hooks/useGetHello";
 
 export function SeasonPlanPage() {
   const [ageGroup, setAgeGroup] = useState<string | undefined>();
   const [regi, setRegi] = useState<string | undefined>();
   const [season, setSeason] = useState<string | undefined>();
   const [_class, setClass] = useState<string | undefined>();
+
+  const { data, error, loading } = useGetHello("http://localhost:3306/hello");
 
   const ageGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAgeGroup(event.target.value);
@@ -37,8 +40,13 @@ export function SeasonPlanPage() {
     // call api hook with search parameters
   };
 
+  if (error) {
+    console.log(error);
+  }
+
   return (
     <div>
+      {data}
       <div className="flex flex-row gap-3">
         <SeasonSelect setSeason={seasonChange} />
         <RegiSelect setRegi={regiChange} />
