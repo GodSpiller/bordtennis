@@ -22,6 +22,7 @@ public class UserResource {
     private UserController userController;
 
     @PostMapping("create")
+    @CrossOrigin
     public HttpStatus create(@RequestBody CreateUserRequestDTO createUserRequestDTO) {
         userController.create(createUserRequestDTO);
         return HttpStatus.ACCEPTED;

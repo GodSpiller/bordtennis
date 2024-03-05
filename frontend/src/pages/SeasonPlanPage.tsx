@@ -7,6 +7,7 @@ import { DateSelect } from "../components/selects/DateSelect";
 import { ClassSelect } from "../components/selects/ClassSelect";
 import { SearchButton } from "../components/SearchButton";
 import { useGetHello } from "../hooks/useGetHello";
+import { useFetch } from "../hooks/useFetch";
 
 export function SeasonPlanPage() {
   const [ageGroup, setAgeGroup] = useState<string | undefined>();
@@ -14,7 +15,9 @@ export function SeasonPlanPage() {
   const [season, setSeason] = useState<string | undefined>();
   const [_class, setClass] = useState<string | undefined>();
 
-  const { data, error, loading } = useGetHello("http://localhost:3306/hello");
+  const { data, error, loading } = useFetch<string>(
+    "http://localhost:8080/users/create"
+  );
 
   const ageGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAgeGroup(event.target.value);
@@ -46,7 +49,6 @@ export function SeasonPlanPage() {
 
   return (
     <div>
-      {data}
       <div className="flex flex-row gap-3">
         <SeasonSelect setSeason={seasonChange} />
         <RegiSelect setRegi={regiChange} />
