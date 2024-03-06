@@ -8,6 +8,7 @@ import { TeamTournamentPage } from "./pages/TeamTournamentPage";
 import { ConventionPage } from "./pages/ConventionPage";
 import { PlayerPage } from "./pages/PlayerPage";
 import { ClubPage } from "./pages/ClubPage";
+import { CreateAccountPage } from "./pages/CreateAccountPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/stævne" element={<ConventionPage />} />
           <Route path="/spillere" element={<PlayerPage />} />
           <Route path="/klubber" element={<ClubPage />} />
+          <Route path="/create_account" element={<CreateAccountPage />} />
         </Route>
       </Routes>
     </div>

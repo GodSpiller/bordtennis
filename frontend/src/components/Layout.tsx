@@ -9,6 +9,7 @@ const links: Link[] = [
   { path: "/stævne", title: "Stævne" },
   { path: "/spillere", title: "Spillere" },
   { path: "/klubber", title: "Klubber" },
+  { path: "/create_account", title: "Create account" },
 ];
 
 export function Layout() {
