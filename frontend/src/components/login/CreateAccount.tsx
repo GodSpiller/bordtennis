@@ -40,7 +40,7 @@ export function CreateAccount({ validate }: Props) {
           }
         ></input>
       </form>
-      <div className="flex flex-col">
+      <form className="flex flex-col">
         <label htmlFor="name">Name</label>
         <input
           className={inputcss}
@@ -55,11 +55,12 @@ export function CreateAccount({ validate }: Props) {
             })
           }
         ></input>
-      </div>
-      <div className="flex flex-col">
-        <label>Password</label>
+      </form>
+      <form className="flex flex-col">
+        <label htmlFor="password1">Password</label>
         <input
           className={inputcss}
+          autoComplete=""
           id="password1"
           name="password1"
           type="password"
@@ -73,11 +74,12 @@ export function CreateAccount({ validate }: Props) {
             })
           }
         ></input>
-      </div>
-      <div className="flex flex-col">
-        <label>Repeat password</label>
+      </form>
+      <form className="flex flex-col">
+        <label htmlFor="password2">Repeat password</label>
         <input
           className={inputcss}
+          autoComplete=""
           id="password2"
           name="password2"
           type="password"
@@ -91,7 +93,7 @@ export function CreateAccount({ validate }: Props) {
             })
           }
         ></input>
-      </div>
+      </form>
       <button
         className="border border-grey hover:border-black rounded px-1"
         onClick={() => validate(formState)}
