@@ -13,6 +13,10 @@ export function CreateAccountPage() {
   const validateAccount = (accountInfo: CreateAccountForm) => {
     //const c = new RegExp("^.{8,32}$");
 
+    const emailValidation = new RegExp(
+      "/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}$/"
+    );
+
     const passwordValidation = new RegExp(
       "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})"
     );
@@ -29,6 +33,10 @@ export function CreateAccountPage() {
 
     if (!(accountInfo.password === accountInfo.secondPassword)) {
       console.log("Passwords do not match");
+    }
+
+    if (!emailValidation.test(accountInfo.email)) {
+      console.log("Email is not valid");
     }
   };
 
