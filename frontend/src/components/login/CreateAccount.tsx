@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { InvalidInput } from "../../pages/CreateAccountPage";
 const inputcss =
   "appearance-none border border-gray-300 py-2 px-4 my-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent";
 
@@ -10,11 +10,7 @@ export type CreateAccountForm = {
   name: string;
 };
 
-type Props = {
-  validate: (accountInfo: CreateAccountForm) => void;
-};
-
-export function CreateAccount({ validate }: Props) {
+export function CreateAccount() {
   const [formState, setFormState] = useState<CreateAccountForm>({
     email: "",
     password: "",
@@ -22,10 +18,71 @@ export function CreateAccount({ validate }: Props) {
     name: "",
   });
 
+  function validate() {
+    if (
+      valid("email" as keyof CreateAccountForm) &&
+      valid("name" as keyof CreateAccountForm) &&
+      valid("password" as keyof CreateAccountForm) &&
+      valid("secondPassword" as keyof CreateAccountForm)
+    ) {
+      console.log("inputs are valid");
+    } else {
+      console.log("not valid");
+      console.log({ formState });
+    }
+  }
+
+  function valid(key: keyof CreateAccountForm) {
+    switch (key) {
+      case "email": {
+        const emailValidation = new RegExp(
+          /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/
+        );
+        if (!emailValidation.test(formState.email)) {
+          console.log("email not valid");
+          return false;
+        }
+        break;
+      }
+      case "name": {
+        const nameValidation = new RegExp(
+          /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+        );
+        if (!nameValidation.test(formState.name)) {
+          console.log("name not valid");
+          return false;
+        }
+        break;
+      }
+      case "password": {
+        const passwordValidation = new RegExp(
+          /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/
+        );
+        if (!passwordValidation.test(formState.password)) {
+          console.log("password not valid");
+
+          return false;
+        }
+        break;
+      }
+      case "secondPassword": {
+        if (formState.password !== formState.secondPassword) {
+          console.log("passwords do not match valid");
+
+          return false;
+        }
+        break;
+      }
+    }
+    return true;
+  }
+
   return (
     <div className="flex flex-col w-80">
       <form className="flex flex-col">
-        <label htmlFor="email">Email</label>
+        <div>
+          <label htmlFor="email">Email</label>
+        </div>
         <input
           className={inputcss}
           id="email"
@@ -96,7 +153,7 @@ export function CreateAccount({ validate }: Props) {
       </form>
       <button
         className="border border-grey hover:border-black rounded px-1"
-        onClick={() => validate(formState)}
+        onClick={() => validate()}
       >
         Create Account
       </button>
