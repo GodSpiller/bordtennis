@@ -10,12 +10,26 @@ export type CreateAccountForm = {
   name: string;
 };
 
+type AccountFormError = {
+  email: boolean;
+  password: boolean;
+  secondPassword: boolean;
+  name: boolean;
+};
+
 export function CreateAccount() {
   const [formState, setFormState] = useState<CreateAccountForm>({
     email: "",
     password: "",
     secondPassword: "",
     name: "",
+  });
+
+  const [error, setErrors] = useState<AccountFormError>({
+    email: false,
+    password: false,
+    secondPassword: false,
+    name: false,
   });
 
   function validate() {
@@ -28,7 +42,6 @@ export function CreateAccount() {
       console.log("inputs are valid");
     } else {
       console.log("not valid");
-      console.log({ formState });
     }
   }
 
@@ -40,8 +53,10 @@ export function CreateAccount() {
         );
         if (!emailValidation.test(formState.email)) {
           console.log("email not valid");
+          setErrors({ ...error, email: true });
           return false;
         }
+        setErrors({ ...error, email: false });
         break;
       }
       case "name": {
@@ -50,8 +65,10 @@ export function CreateAccount() {
         );
         if (!nameValidation.test(formState.name)) {
           console.log("name not valid");
+          setErrors({ ...error, name: true });
           return false;
         }
+        setErrors({ ...error, name: false });
         break;
       }
       case "password": {
@@ -60,17 +77,19 @@ export function CreateAccount() {
         );
         if (!passwordValidation.test(formState.password)) {
           console.log("password not valid");
-
+          setErrors({ ...error, password: true });
           return false;
         }
+        setErrors({ ...error, password: false });
         break;
       }
       case "secondPassword": {
         if (formState.password !== formState.secondPassword) {
           console.log("passwords do not match valid");
-
+          setErrors({ ...error, secondPassword: true });
           return false;
         }
+        setErrors({ ...error, secondPassword: false });
         break;
       }
     }
