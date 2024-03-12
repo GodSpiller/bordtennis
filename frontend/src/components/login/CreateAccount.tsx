@@ -1,37 +1,55 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 const inputcss =
   "appearance-none border border-gray-300 py-2 px-4 my-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent";
 
-type FormFields = {
-  email: string;
-  name: string;
-  password: string;
-  password2: string;
-};
+const CreateAccountSchema = z
+  .object({
+    email: z.string().min(1, "Email is required").email(),
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .refine((name) => {
+        const exp = /^[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*$/;
+        if (exp.test(name)) {
+          return true;
+        }
+        return false;
+      }, "Name contains illegal characters"),
+    password: z.string().refine((password) => {
+      const exp =
+        /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
+      if (exp.test(password)) {
+        return true;
+      }
+      return false;
+    }, "Password does not meet requirements"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword);
+
+type FormFields = z.infer<typeof CreateAccountSchema>;
 
 export function CreateAccount() {
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<FormFields>();
+    formState: { errors, isSubmitting },
+  } = useForm<FormFields>({ resolver: zodResolver(CreateAccountSchema) });
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    //send create account request
+    //handle possible errors
   };
 
   return (
     <form className="flex flex-col w-80" onSubmit={handleSubmit(onSubmit)}>
       <input
         className={inputcss}
-        {...register("email", {
-          required: "Email is required",
-          pattern: {
-            value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/,
-            message: "Invalid email",
-          },
-        })}
+        {...register("email")}
         type="text"
         placeholder="Email"
       />
@@ -40,30 +58,14 @@ export function CreateAccount() {
       )}
       <input
         className={inputcss}
-        {...register("name", {
-          required: "Name is required",
-          pattern: {
-            value: /^[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*$/,
-            message: "Name contained illegal characters",
-          },
-        })}
+        {...register("name")}
         type="text"
         placeholder="Name"
       />
       {errors.name && <div className="text-red-500">{errors.name.message}</div>}
       <input
         className={inputcss}
-        {...register("password", {
-          required: "Password required",
-
-          pattern: {
-            value:
-              /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/,
-            message:
-              "Password must contain at least one lowercase, uppercase, and one special character and must be at least 8 characters",
-          },
-          minLength: 8,
-        })}
+        {...register("password")}
         type="password"
         placeholder="Password"
       />
@@ -72,21 +74,16 @@ export function CreateAccount() {
       )}
       <input
         className={inputcss}
-        {...register("password2", {
-          required: "Password do not match",
-          validate: (val: string) => {
-            if (watch("password") !== val) {
-              return "Your passwords do not match";
-            }
-          },
-        })}
+        {...register("confirmPassword")}
         type="password"
         placeholder="Repeat Password"
       />
-      {errors.password2 && (
-        <div className="text-red-500">{errors.password2.message}</div>
+      {errors.confirmPassword && (
+        <div className="text-red-500">{errors.confirmPassword.message}</div>
       )}
-      <button type="submit">Opret Konto</button>
+      <button disabled={isSubmitting} type="submit">
+        {isSubmitting ? "Opretter konto" : "Opret konto"}
+      </button>
     </form>
   );
 }
