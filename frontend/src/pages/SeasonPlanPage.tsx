@@ -1,63 +1,42 @@
-import { useState } from "react";
-import { AgeGroupSelect } from "../components/selects/AgeGroupSelect";
-import { WeekInput } from "../components/inputs/WeekInput";
-import { RegiSelect } from "../components/selects/RegiSelect";
-import { SeasonSelect } from "../components/selects/SeasonSelect";
-import { DateSelect } from "../components/selects/DateSelect";
-import { ClassSelect } from "../components/selects/ClassSelect";
-import { SearchButton } from "../components/SearchButton";
-import { useGetHello } from "../hooks/useGetHello";
-import { useFetch } from "../hooks/useFetch";
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import SelectOptions from '../components/selects/SelectOptions';
+import { ageGroups, classes, regi, seasons } from '../constants';
+import { WeekInput } from '../components/inputs/WeekInput';
+
+const SeasonFormSchema = z.object({
+	classes: z.string(),
+	ageGroup: z.string(),
+	regi: z.string(),
+});
+
+type SeasonForm = z.infer<typeof SeasonFormSchema>;
 
 export function SeasonPlanPage() {
-  const [ageGroup, setAgeGroup] = useState<string | undefined>();
-  const [regi, setRegi] = useState<string | undefined>();
-  const [season, setSeason] = useState<string | undefined>();
-  const [_class, setClass] = useState<string | undefined>();
+	const { register } = useForm<SeasonForm>();
 
-  const { data, error, loading } = useFetch<string>(
-    "http://localhost:8080/users/create"
-  );
-
-  const ageGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setAgeGroup(event.target.value);
-    console.log(ageGroup);
-  };
-
-  const regiChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setRegi(event.target.value);
-    console.log(regi);
-  };
-
-  const seasonChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSeason(event.target.value);
-    console.log(season);
-  };
-
-  const classChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setClass(event.target.value);
-    console.log(_class);
-  };
-
-  const Search = () => {
-    // call api hook with search parameters
-  };
-
-  if (error) {
-    console.log(error);
-  }
-
-  return (
-    <div>
-      <div className="flex flex-row gap-3">
-        <SeasonSelect setSeason={seasonChange} />
-        <RegiSelect setRegi={regiChange} />
-        <AgeGroupSelect setAgeGroup={ageGroupChange} />
-        <ClassSelect setClass={classChange} />
-        <DateSelect />
-        <WeekInput />
-      </div>
-      <SearchButton search={Search} />
-    </div>
-  );
+	return (
+		<div className="">
+			<form>
+				<label>Sæson</label>
+				<select {...register('regi')}>
+					<SelectOptions options={seasons} />
+				</select>
+				<label>Klasse</label>
+				<select {...register('classes')}>
+					<SelectOptions options={classes} />
+				</select>
+				<label>Aldersgruppe</label>
+				<select {...register('ageGroup')}>
+					<SelectOptions options={ageGroups} />
+				</select>
+				<label>Regi</label>
+				<select {...register('regi')}>
+					<SelectOptions options={regi} />
+				</select>
+				<label>Uge</label>
+				<WeekInput></WeekInput>
+			</form>
+		</div>
+	);
 }
