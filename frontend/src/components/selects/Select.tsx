@@ -1,5 +1,5 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form';
-import { SelectElement, seasons } from '../../constants';
+import { UseFormRegister } from 'react-hook-form';
+import { SelectElement } from '../../constants';
 import SelectOptions from './SelectOptions';
 import { SeasonForm } from '../../pages/SeasonPlanPage';
 
