@@ -22,15 +22,13 @@ export function SeasonPlanPage() {
 	const { register } = useForm<SeasonForm>();
 
 	return (
-		<div className="">
-			<form>
-				<Select label="Sæson" register={register} options={seasons} />
-				<Select label="Klasse" register={register} options={classes} />
-				<Select label="Aldersgruppe" register={register} options={ageGroups} />
-				<Select label="Regi" register={register} options={regi} />
-				<DoubleInput from="dateFrom" to="dateTo" label="Dato" register={register} type="date" />
-				<DoubleInput from="weekFrom" to="weekTo" label="Uge" register={register} type="week" />
-			</form>
-		</div>
+		<form className="flex flex-col">
+			<Select label="Sæson" register={register} options={seasons} />
+			<Select label="Klasse" register={register} options={classes} />
+			<Select label="Aldersgruppe" register={register} options={ageGroups} />
+			<Select label="Regi" register={register} options={regi} />
+			<DoubleInput from="dateFrom" to="dateTo" label="Dato" register={register} type="date" />
+			<DoubleInput from="weekFrom" to="weekTo" label="Uge" register={register} type="week" />
+		</form>
 	);
 }

@@ -1,7 +1,7 @@
 type Props = {
-  search: () => void;
+	search: () => void;
 };
 
 export function SearchButton({ search }: Props) {
-  return <button onClick={search}>search</button>;
+	return <button onClick={search}>search</button>;
 }
